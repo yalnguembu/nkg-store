@@ -1,0 +1,3055 @@
+openapi: 3.0.0
+paths:
+  /catalogue/categories:
+    post:
+      operationId: CategoriesController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryDto'
+      responses:
+        '201':
+          description: Category created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCategoryResponseDto'
+      summary: Create a new category
+      tags:
+        - Categories
+    get:
+      operationId: CategoriesController_findAll
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 10
+            type: number
+        - name: search
+          required: false
+          in: query
+          description: Search term
+          schema:
+            type: string
+        - name: order
+          required: false
+          in: query
+          schema:
+            default: desc
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: isActive
+          required: false
+          in: query
+          schema:
+            type: boolean
+        - name: parentId
+          required: false
+          in: query
+          description: Filter by parent ID
+          schema:
+            type: string
+        - name: includeChildren
+          required: false
+          in: query
+          description: Include children in response
+          schema:
+            default: false
+            type: boolean
+      responses:
+        '200':
+          description: Return paginated categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCategoryResponseDto'
+      summary: List categories with filtering
+      tags:
+        - Categories
+  /catalogue/categories/tree:
+    get:
+      operationId: CategoriesController_getTree
+      parameters: []
+      responses:
+        '200':
+          description: Return category tree
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryTreeResponseDto'
+      summary: Get category hierarchy tree
+      tags:
+        - Categories
+  /catalogue/categories/{id}:
+    get:
+      operationId: CategoriesController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return category details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCategoryResponseDto'
+      summary: Get category details
+      tags:
+        - Categories
+    patch:
+      operationId: CategoriesController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryDto'
+      responses:
+        '200':
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCategoryResponseDto'
+      summary: Update a category
+      tags:
+        - Categories
+    delete:
+      operationId: CategoriesController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Category deleted
+      summary: Delete a category
+      tags:
+        - Categories
+  /catalogue/brands:
+    post:
+      operationId: BrandsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBrandDto'
+      responses:
+        '201':
+          description: Brand created
+      summary: Create a new brand
+      tags:
+        - Brands
+    get:
+      operationId: BrandsController_findAll
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 10
+            type: number
+        - name: search
+          required: false
+          in: query
+          description: Search term
+          schema:
+            type: string
+        - name: order
+          required: false
+          in: query
+          schema:
+            default: desc
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: isActive
+          required: false
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+      summary: List brands
+      tags:
+        - Brands
+  /catalogue/brands/{id}:
+    get:
+      operationId: BrandsController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get brand details
+      tags:
+        - Brands
+    patch:
+      operationId: BrandsController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandDto'
+      responses:
+        '200':
+          description: ''
+      summary: Update a brand
+      tags:
+        - Brands
+    delete:
+      operationId: BrandsController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Delete a brand
+      tags:
+        - Brands
+  /catalogue/models:
+    post:
+      operationId: ModelController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateModelDto'
+      responses:
+        '201':
+          description: Model created successfully
+      summary: Create a model
+      tags:
+        - Models
+    get:
+      operationId: ModelController_findAll
+      parameters:
+        - name: brandId
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: includeInactive
+          required: false
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Return all models
+      summary: List all models
+      tags:
+        - Models
+  /catalogue/models/{id}:
+    get:
+      operationId: ModelController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return model details
+      summary: Get model details
+      tags:
+        - Models
+    patch:
+      operationId: ModelController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateModelDto'
+      responses:
+        '200':
+          description: Model updated successfully
+      summary: Update a model
+      tags:
+        - Models
+    delete:
+      operationId: ModelController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Model deleted successfully
+      summary: Delete a model
+      tags:
+        - Models
+  /catalogue/products:
+    post:
+      operationId: ProductsController_createFull
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductFullDto'
+      responses:
+        '201':
+          description: Product created successfully
+      summary: Create a product with variants and images
+      tags:
+        - Products
+    get:
+      operationId: ProductsController_findAll
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 10
+            type: number
+        - name: search
+          required: false
+          in: query
+          description: Search term
+          schema:
+            type: string
+        - name: order
+          required: false
+          in: query
+          schema:
+            default: desc
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: isActive
+          required: false
+          in: query
+          schema:
+            type: boolean
+        - name: categoryId
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: brandId
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: modelId
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: isDropshipping
+          required: false
+          in: query
+          schema:
+            type: boolean
+        - name: minPrice
+          required: false
+          in: query
+          description: Filter by min price
+          schema:
+            type: number
+        - name: maxPrice
+          required: false
+          in: query
+          description: Filter by max price
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Return all products paginated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DataResponseDto'
+                  - properties:
+                      data:
+                        allOf:
+                          - $ref: '#/components/schemas/PaginatedResponseDto'
+                          - properties:
+                              data:
+                                type: array
+                                items:
+                                  $ref: '#/components/schemas/CreateProductFullDto'
+      summary: List products with complex filtering
+      tags:
+        - Products
+  /catalogue/products/{id}:
+    get:
+      operationId: ProductsController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get full product details
+      tags:
+        - Products
+    patch:
+      operationId: ProductsController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProductDto'
+      responses:
+        '200':
+          description: ''
+      summary: Update product basic info
+      tags:
+        - Products
+    delete:
+      operationId: ProductsController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Delete product and relations
+      tags:
+        - Products
+  /catalogue/products/slug/{slug}:
+    get:
+      operationId: ProductsController_findBySlug
+      parameters:
+        - name: slug
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get product by slug
+      tags:
+        - Products
+  /catalogue/products/{id}/duplicate:
+    post:
+      operationId: ProductsController_duplicate
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Duplicate a product
+      tags:
+        - Products
+  /catalogue/variants/product/{productId}:
+    post:
+      operationId: VariantsController_create
+      parameters:
+        - name: productId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVariantDto'
+      responses:
+        '201':
+          description: ''
+      summary: Add variant to product
+      tags:
+        - Variants
+  /catalogue/variants/{id}:
+    patch:
+      operationId: VariantsController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVariantDto'
+      responses:
+        '200':
+          description: ''
+      summary: Update variant
+      tags:
+        - Variants
+    delete:
+      operationId: VariantsController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Delete variant
+      tags:
+        - Variants
+  /catalogue/variants/{id}/stock:
+    patch:
+      operationId: VariantsController_updateStock
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Update variant stock quantity
+      tags:
+        - Variants
+  /catalogue/prices:
+    post:
+      operationId: PricesController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePriceDto'
+      responses:
+        '201':
+          description: Price created successfully
+      summary: Create a price
+      tags:
+        - Prices
+  /catalogue/prices/variant/{variantId}:
+    get:
+      operationId: PricesController_findByVariant
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get all prices for a variant
+      tags:
+        - Prices
+  /catalogue/prices/variant/{variantId}/effective:
+    get:
+      operationId: PricesController_getEffectivePrice
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: quantity
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: customerType
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get effective price for a variant
+      tags:
+        - Prices
+  /catalogue/prices/variant/{variantId}/bulk:
+    get:
+      operationId: PricesController_getBulkPrices
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: customerType
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get bulk pricing tiers for a variant
+      tags:
+        - Prices
+  /catalogue/prices/variant/{variantId}/history:
+    get:
+      operationId: PricesController_getPriceHistory
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: Get price history for a variant
+      tags:
+        - Prices
+  /catalogue/prices/variant/{variantId}/promotion:
+    post:
+      operationId: PricesController_applyPromotion
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePromotionDto'
+      responses:
+        '201':
+          description: ''
+      summary: Apply a promotion to a variant
+      tags:
+        - Prices
+    delete:
+      operationId: PricesController_removePromotion
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: customerType
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Remove active promotion from a variant
+      tags:
+        - Prices
+  /catalogue/prices/{id}:
+    patch:
+      operationId: PricesController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePriceDto'
+      responses:
+        '200':
+          description: ''
+      summary: Update a price
+      tags:
+        - Prices
+    delete:
+      operationId: PricesController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Delete a price
+      tags:
+        - Prices
+  /catalogue/suppliers:
+    post:
+      operationId: SuppliersController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSupplierDto'
+      responses:
+        '201':
+          description: Supplier created
+      summary: Create a new supplier
+      tags:
+        - Suppliers
+    get:
+      operationId: SuppliersController_findAll
+      parameters:
+        - name: page
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            minimum: 1
+            default: 10
+            type: number
+        - name: search
+          required: false
+          in: query
+          description: Search term
+          schema:
+            type: string
+        - name: order
+          required: false
+          in: query
+          schema:
+            default: desc
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: isActive
+          required: false
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: ''
+      summary: List suppliers
+      tags:
+        - Suppliers
+  /catalogue/suppliers/{id}:
+    get:
+      operationId: SuppliersController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get supplier details
+      tags:
+        - Suppliers
+    patch:
+      operationId: SuppliersController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSupplierDto'
+      responses:
+        '200':
+          description: ''
+      summary: Update a supplier
+      tags:
+        - Suppliers
+    delete:
+      operationId: SuppliersController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Delete a supplier
+      tags:
+        - Suppliers
+  /catalogue/suppliers/{id}/products:
+    get:
+      operationId: SuppliersController_getSupplierProducts
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get products for a supplier
+      tags:
+        - Suppliers
+  /stock/low-stock:
+    get:
+      operationId: StockController_getLowStockItems
+      parameters: []
+      responses:
+        '200':
+          description: Return low stock items
+      summary: Get items with low stock
+      tags:
+        - Stock
+  /stock/{variantId}:
+    get:
+      operationId: StockController_getStock
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return stock level
+      summary: Get stock level for a variant
+      tags:
+        - Stock
+  /stock/{variantId}/reserve:
+    post:
+      operationId: StockController_reserveStock
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReserveStockDto'
+      responses:
+        '201':
+          description: Stock reserved successfully
+      summary: Reserve stock
+      tags:
+        - Stock
+  /stock/{variantId}/release:
+    post:
+      operationId: StockController_releaseStock
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReleaseStockDto'
+      responses:
+        '201':
+          description: Stock released successfully
+      summary: Release reserved stock
+      tags:
+        - Stock
+  /stock/{variantId}/adjust:
+    post:
+      operationId: StockController_adjustStock
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockAdjustmentDto'
+      responses:
+        '201':
+          description: Stock adjusted successfully
+      summary: Manually adjust stock (inventory/restock)
+      tags:
+        - Stock
+  /stock/{variantId}/movements:
+    get:
+      operationId: StockController_getMovements
+      parameters:
+        - name: variantId
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Return movement history
+      summary: Get stock movement history
+      tags:
+        - Stock
+  /customers:
+    post:
+      operationId: CustomersController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerDto'
+      responses:
+        '201':
+          description: Customer created successfully
+      summary: Create a customer
+      tags:
+        - Customers
+    get:
+      operationId: CustomersController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: List all customers
+      tags:
+        - Customers
+  /customers/top:
+    get:
+      operationId: CustomersController_getTop
+      parameters:
+        - name: limit
+          required: false
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: Get top spending customers
+      tags:
+        - Customers
+  /customers/{id}:
+    get:
+      operationId: CustomersController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get customer details
+      tags:
+        - Customers
+    patch:
+      operationId: CustomersController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerDto'
+      responses:
+        '200':
+          description: Customer updated successfully
+      summary: Update customer
+      tags:
+        - Customers
+  /customers/{id}/stats:
+    get:
+      operationId: CustomersController_getStats
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get customer statistics
+      tags:
+        - Customers
+  /customers/{id}/refresh-stats:
+    post:
+      operationId: CustomersController_refreshStats
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Force refresh customer stats
+      tags:
+        - Customers
+  /orders:
+    post:
+      operationId: OrdersController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderDto'
+      responses:
+        '201':
+          description: Order created successfully
+      summary: Create new order from cart
+      tags:
+        - Orders
+    get:
+      operationId: OrdersController_findAll
+      parameters:
+        - name: status
+          required: false
+          in: query
+          description: Filter by status
+          schema:
+            type: string
+            enum:
+              - DRAFT
+              - PENDING
+              - CONFIRMED
+              - IN_PROGRESS
+              - AWAITING_PAYMENT
+              - PAID
+              - PREPARING
+              - READY_FOR_PICKUP
+              - SHIPPED
+              - DELIVERED
+              - COMPLETED
+              - CANCELLED
+              - REFUNDED
+        - name: search
+          required: false
+          in: query
+          description: Filter by order number, customer name, or email
+          schema:
+            type: string
+        - name: customerId
+          required: false
+          in: query
+          description: Filter by customer ID
+          schema:
+            type: string
+        - name: deliveryMethod
+          required: false
+          in: query
+          description: Filter by delivery method
+          schema:
+            type: string
+            enum:
+              - PICKUP
+              - HOME_DELIVERY
+              - DROPSHIP
+        - name: page
+          required: false
+          in: query
+          schema:
+            default: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            default: 20
+            type: number
+      responses:
+        '200':
+          description: Return all orders paginated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DataResponseDto'
+                  - properties:
+                      data:
+                        allOf:
+                          - $ref: '#/components/schemas/PaginatedResponseDto'
+                          - properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+      summary: List orders with filtering
+      tags:
+        - Orders
+  /orders/{id}:
+    get:
+      operationId: OrdersController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return order details
+      summary: Get order details
+      tags:
+        - Orders
+  /orders/{id}/status:
+    patch:
+      operationId: OrdersController_updateStatus
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderStatusDto'
+      responses:
+        '200':
+          description: Order status updated successfully
+      summary: Update order status
+      tags:
+        - Orders
+  /orders/{id}/schedule-installation:
+    post:
+      operationId: OrdersController_scheduleInstallation
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleInstallationDto'
+      responses:
+        '201':
+          description: Installation scheduled successfully
+      summary: Schedule installation date
+      tags:
+        - Orders
+  /orders/{id}/whatsapp:
+    post:
+      operationId: OrdersController_generateWhatsApp
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Generate WhatsApp link for order
+      tags:
+        - Orders
+  /orders/{id}/whatsapp-url:
+    get:
+      operationId: OrdersController_getWhatsAppUrl
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get stored WhatsApp URL
+      tags:
+        - Orders
+  /orders/{id}/whatsapp/status-update:
+    post:
+      operationId: OrdersController_generateStatusUpdate
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: status
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Generate status update WhatsApp message
+      tags:
+        - Orders
+  /orders/{id}/whatsapp/payment-reminder:
+    post:
+      operationId: OrdersController_generatePaymentReminder
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Generate payment reminder WhatsApp message
+      tags:
+        - Orders
+  /quotes:
+    get:
+      operationId: QuotesController_findAll
+      parameters:
+        - name: status
+          required: false
+          in: query
+          description: Filter by status
+          schema:
+            type: string
+            enum:
+              - DRAFT
+              - PENDING
+              - SENT
+              - ACCEPTED
+              - REJECTED
+              - EXPIRED
+        - name: search
+          required: false
+          in: query
+          description: Filter by quote number or customer
+          schema:
+            type: string
+        - name: orderId
+          required: false
+          in: query
+          description: Filter by order ID
+          schema:
+            type: string
+        - name: page
+          required: false
+          in: query
+          schema:
+            default: 1
+            type: number
+        - name: limit
+          required: false
+          in: query
+          schema:
+            default: 20
+            type: number
+      responses:
+        '200':
+          description: Return all quotes paginated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DataResponseDto'
+                  - properties:
+                      data:
+                        allOf:
+                          - $ref: '#/components/schemas/PaginatedResponseDto'
+                          - properties:
+                              data:
+                                type: array
+                                items:
+                                  type: object
+      summary: List quotes with filtering
+      tags:
+        - Quotes
+    post:
+      operationId: QuotesController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuoteDto'
+      responses:
+        '201':
+          description: Quote created successfully
+      summary: Create a new quote (from Cart or Order)
+      tags:
+        - Quotes
+  /quotes/{id}:
+    get:
+      operationId: QuotesController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return quote details
+      summary: Get quote details
+      tags:
+        - Quotes
+  /quotes/{id}/accept:
+    post:
+      operationId: QuotesController_accept
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptQuoteDto'
+      responses:
+        '201':
+          description: Quote accepted and order created
+      summary: Accept quote and convert to order
+      tags:
+        - Quotes
+  /quotes/{id}/reject:
+    post:
+      operationId: QuotesController_reject
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Quote rejected successfully
+      summary: Reject quote
+      tags:
+        - Quotes
+  /quotes/{id}/pdf:
+    post:
+      operationId: QuotesController_generatePdf
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Generate PDF for quote
+      tags:
+        - Quotes
+  /quotes/check-expirations:
+    post:
+      operationId: QuotesController_checkExpirations
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      summary: Trigger expiration check manually
+      tags:
+        - Quotes
+  /quotes/{id}/whatsapp:
+    post:
+      operationId: QuotesController_generateWhatsApp
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ''
+      summary: Generate WhatsApp link for quote
+      tags:
+        - Quotes
+  /quotes/{id}/whatsapp-url:
+    get:
+      operationId: QuotesController_getWhatsAppUrl
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get stored WhatsApp URL
+      tags:
+        - Quotes
+  /installation-pricing:
+    get:
+      operationId: InstallationPricingController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Get all installation pricing
+      tags:
+        - Installation Pricing
+  /installation-pricing/{id}:
+    get:
+      operationId: InstallationPricingController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get installation pricing details
+      tags:
+        - Installation Pricing
+  /orders/{orderId}/payments:
+    post:
+      operationId: PaymentController_createForOrder
+      parameters:
+        - name: orderId
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentDto'
+      responses:
+        '201':
+          description: Payment created successfully
+      summary: Create a payment for an order
+      tags:
+        - Payments
+    get:
+      operationId: PaymentController_findAllForOrder
+      parameters:
+        - name: orderId
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return all payments for order
+      summary: Get all payments for an order
+      tags:
+        - Payments
+  /payments/{id}:
+    get:
+      operationId: PaymentController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return payment details
+      summary: Get payment details
+      tags:
+        - Payments
+  /payments/{id}/status:
+    patch:
+      operationId: PaymentController_updateStatus
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentStatusDto'
+      responses:
+        '200':
+          description: Payment status updated successfully
+      summary: Update payment status
+      tags:
+        - Payments
+  /payments/{id}/refund:
+    post:
+      operationId: PaymentController_refund
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment refunded successfully
+      summary: Refund a payment
+      tags:
+        - Payments
+  /cart:
+    get:
+      operationId: CartController_getOrCreate
+      parameters:
+        - name: customerId
+          required: false
+          in: query
+          schema:
+            type: string
+        - name: sessionId
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get or create a cart
+      tags:
+        - Cart
+  /cart/{id}:
+    get:
+      operationId: CartController_getCart
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: customerType
+          required: false
+          in: query
+          schema:
+            example: B2C
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Get cart with calculations
+      tags:
+        - Cart
+  /cart/items:
+    post:
+      operationId: CartController_addItem
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddToCartDto'
+      responses:
+        '201':
+          description: Item added successfully
+      summary: Add item to cart
+      tags:
+        - Cart
+  /cart/items/{id}:
+    patch:
+      operationId: CartController_updateItem
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCartItemDto'
+      responses:
+        '200':
+          description: Item updated successfully
+      summary: Update cart item quantity
+      tags:
+        - Cart
+    delete:
+      operationId: CartController_removeItem
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Item removed successfully
+      summary: Remove item from cart
+      tags:
+        - Cart
+  /cart/{id}/clear:
+    delete:
+      operationId: CartController_clearCart
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cart cleared successfully
+      summary: Clear all items from cart
+      tags:
+        - Cart
+  /cart/merge:
+    post:
+      operationId: CartController_mergeCart
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeCartDto'
+      responses:
+        '200':
+          description: Carts merged successfully
+      summary: Merge guest cart with customer cart
+      tags:
+        - Cart
+  /admin/config:
+    post:
+      operationId: SystemConfigController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSystemConfigDto'
+      responses:
+        '201':
+          description: Configuration created
+      summary: Create a system configuration
+      tags:
+        - System Configuration
+    get:
+      operationId: SystemConfigController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: Return all configurations
+      summary: List all configurations
+      tags:
+        - System Configuration
+  /admin/config/{key}:
+    get:
+      operationId: SystemConfigController_findOne
+      parameters:
+        - name: key
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return configuration details
+      summary: Get configuration by key
+      tags:
+        - System Configuration
+    patch:
+      operationId: SystemConfigController_update
+      parameters:
+        - name: key
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSystemConfigDto'
+      responses:
+        '200':
+          description: Configuration updated successfully
+      summary: Update configuration
+      tags:
+        - System Configuration
+    delete:
+      operationId: SystemConfigController_remove
+      parameters:
+        - name: key
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Configuration deleted successfully
+      summary: Delete configuration
+      tags:
+        - System Configuration
+  /admin/users:
+    get:
+      operationId: AdminUsersController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Get all admin users
+      tags:
+        - Admin Users
+    post:
+      operationId: AdminUsersController_create
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - Admin Users
+  /admin/users/{id}:
+    get:
+      operationId: AdminUsersController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Admin Users
+    put:
+      operationId: AdminUsersController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Admin Users
+    delete:
+      operationId: AdminUsersController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Admin Users
+  /admin/users/emergency-seed:
+    post:
+      operationId: AdminUsersController_emergencySeed
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      summary: Emergency seed for admin user
+      tags:
+        - Admin Users
+  /admin/site-config:
+    get:
+      operationId: SiteConfigController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Get all site configurations
+      tags:
+        - Site Config
+  /admin/site-config/{key}:
+    get:
+      operationId: SiteConfigController_findByKey
+      parameters:
+        - name: key
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Site Config
+    put:
+      operationId: SiteConfigController_update
+      parameters:
+        - name: key
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+        - Site Config
+  /admin/activity-logs:
+    get:
+      operationId: ActivityLogsController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Get activity logs with filtering
+      tags:
+        - Activity Logs
+  /reports/dashboard:
+    get:
+      operationId: ReportsController_getDashboard
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Get main dashboard summary stats
+      tags:
+        - Reports & Analytics
+  /reports/sales:
+    get:
+      operationId: ReportsController_getSales
+      parameters:
+        - name: startDate
+          required: false
+          in: query
+          description: Start date
+          schema:
+            example: '2023-01-01'
+            type: string
+        - name: endDate
+          required: false
+          in: query
+          description: End date
+          schema:
+            example: '2023-12-31'
+            type: string
+        - name: period
+          required: false
+          in: query
+          description: Grouping period
+          schema:
+            type: string
+            enum:
+              - DAY
+              - WEEK
+              - MONTH
+              - YEAR
+      responses:
+        '200':
+          description: ''
+      summary: Get sales chart data
+      tags:
+        - Reports & Analytics
+  /reports/top-products:
+    get:
+      operationId: ReportsController_getTopProducts
+      parameters:
+        - name: limit
+          required: true
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      summary: Get top selling products
+      tags:
+        - Reports & Analytics
+  /reports/inventory-valuation:
+    get:
+      operationId: ReportsController_getInventoryValuation
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      summary: Get current inventory valuation
+      tags:
+        - Reports & Analytics
+  /auth/login:
+    post:
+      operationId: AuthController_login
+      parameters: []
+      responses:
+        '200':
+          description: Return JWT token
+        '401':
+          description: Unauthorized
+      summary: Admin login
+      tags:
+        - Auth
+  /documents:
+    get:
+      operationId: DocumentsController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: Return all documents
+      summary: List all documents
+      tags:
+        - Documents
+  /documents/{id}:
+    delete:
+      operationId: DocumentsController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document deleted
+      summary: Delete a document
+      tags:
+        - Documents
+  /files/upload/{entityType}:
+    post:
+      operationId: FilesController_uploadEntityFile
+      parameters:
+        - name: entityType
+          required: true
+          in: path
+          description: Entity type (categories, brands, models, products, services)
+          schema:
+            enum:
+              - categories
+              - brands
+              - models
+              - products
+              - services
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponseDto'
+      summary: Upload file for specific entity type
+      tags:
+        - Files
+  /files/upload/categories:
+    post:
+      operationId: FilesController_uploadCategoryImage
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponseDto'
+      summary: Upload category image
+      tags:
+        - Files
+  /files/upload/brands:
+    post:
+      operationId: FilesController_uploadBrandLogo
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponseDto'
+      summary: Upload brand logo
+      tags:
+        - Files
+  /files/upload/models:
+    post:
+      operationId: FilesController_uploadModelImage
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponseDto'
+      summary: Upload model image
+      tags:
+        - Files
+  /files/upload/products:
+    post:
+      operationId: FilesController_uploadProductImage
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponseDto'
+      summary: Upload product image
+      tags:
+        - Files
+  /files/upload/services:
+    post:
+      operationId: FilesController_uploadServiceImage
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileResponseDto'
+      summary: Upload service image
+      tags:
+        - Files
+  /files/{id}:
+    delete:
+      operationId: FilesController_deleteFile
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      summary: Delete a file
+      tags:
+        - Files
+info:
+  title: Admin Catalogue API
+  description: The Admin Catalogue API description
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas:
+    CreateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Electronics
+        slug:
+          type: string
+          example: electronics
+          description: Auto-generated if empty
+        parentId:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Parent Category ID
+        description:
+          type: string
+          example: All kinds of electronics
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+      required:
+        - name
+    CategoryCountDto:
+      type: object
+      properties:
+        products:
+          type: number
+        children:
+          type: number
+      required:
+        - products
+    CategoryDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        parentId:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        orderIndex:
+          type: number
+        isActive:
+          type: boolean
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryDto'
+        _count:
+          $ref: '#/components/schemas/CategoryCountDto'
+      required:
+        - id
+        - name
+        - slug
+        - orderIndex
+        - isActive
+        - createdAt
+        - updatedAt
+    SingleCategoryResponseDto:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/CategoryDto'
+      required:
+        - data
+    PageMetaDto:
+      type: object
+      properties:
+        total:
+          type: number
+        page:
+          type: number
+        lastPage:
+          type: number
+      required:
+        - total
+        - page
+        - lastPage
+    PaginatedCategoryDataDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryDto'
+        meta:
+          $ref: '#/components/schemas/PageMetaDto'
+      required:
+        - data
+        - meta
+    PaginatedCategoryResponseDto:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/PaginatedCategoryDataDto'
+      required:
+        - data
+    CategoryTreeResponseDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryDto'
+      required:
+        - data
+    UpdateCategoryDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Electronics
+        slug:
+          type: string
+          example: electronics
+          description: Auto-generated if empty
+        parentId:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Parent Category ID
+        description:
+          type: string
+          example: All kinds of electronics
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+        orderIndex:
+          type: number
+    CreateBrandDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Samsung
+        slug:
+          type: string
+          example: samsung
+        logoUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+      required:
+        - name
+    UpdateBrandDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Samsung
+        slug:
+          type: string
+          example: samsung
+        logoUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+    CreateModelDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+          description: Brand ID
+          example: uuid
+        name:
+          type: string
+          description: Model name
+          example: RT81015
+        reference:
+          type: string
+          description: Model reference
+          example: RT81015
+        year:
+          type: number
+          description: Year of model
+          example: 2024
+        isActive:
+          type: boolean
+          description: Is model active
+          default: true
+      required:
+        - brandId
+        - name
+        - reference
+    UpdateModelDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+          description: Brand ID
+        name:
+          type: string
+          description: Model name
+        reference:
+          type: string
+          description: Model reference
+        year:
+          type: number
+          description: Year of model
+        isActive:
+          type: boolean
+          description: Is model active
+    DataResponseDto:
+      type: object
+      properties:
+        data:
+          type: object
+      required:
+        - data
+    PaginatedResponseDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: array
+        meta:
+          $ref: '#/components/schemas/PageMetaDto'
+      required:
+        - data
+        - meta
+    CreatePriceDto:
+      type: object
+      properties:
+        variantId:
+          type: string
+          description: Product variant ID
+        priceType:
+          type: string
+          description: Price type
+          enum:
+            - BASE
+            - WHOLESALE
+            - PROMO
+        customerType:
+          type: string
+          description: Customer type
+          enum:
+            - B2C
+            - B2B
+            - PARTICULIER
+            - AGENT_COMMERCIAL
+            - REVENDEUR
+        amount:
+          type: number
+          description: Price amount
+          example: 15000
+        currency:
+          type: string
+          description: Currency code
+          default: XAF
+        minQuantity:
+          type: number
+          description: Minimum quantity
+          default: 1
+        validFrom:
+          type: string
+          description: Valid from date
+        validTo:
+          type: string
+          description: Valid to date
+        isActive:
+          type: boolean
+          description: Is price active
+          default: true
+      required:
+        - variantId
+        - priceType
+        - customerType
+        - amount
+    CreateVariantDto:
+      type: object
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        attributes:
+          type: object
+        isActive:
+          type: boolean
+          default: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePriceDto'
+        initialStock:
+          type: number
+          description: Initial stock quantity
+          default: 0
+    CreateProductFullDto:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        sku:
+          type: string
+        description:
+          type: string
+        technicalSpecs:
+          type: object
+        categoryId:
+          type: string
+        brandId:
+          type: string
+        modelId:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+        requiresInstallation:
+          type: boolean
+          default: false
+        isDropshipping:
+          type: boolean
+          default: false
+        dropshipSupplierId:
+          type: string
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateVariantDto'
+        images:
+          description: Array of image URLs
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - sku
+        - categoryId
+    UpdateProductDto:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        sku:
+          type: string
+        description:
+          type: string
+        technicalSpecs:
+          type: object
+        categoryId:
+          type: string
+        brandId:
+          type: string
+        modelId:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+        requiresInstallation:
+          type: boolean
+          default: false
+        isDropshipping:
+          type: boolean
+          default: false
+        dropshipSupplierId:
+          type: string
+    UpdateVariantDto:
+      type: object
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        attributes:
+          type: object
+        isActive:
+          type: boolean
+          default: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePriceDto'
+        initialStock:
+          type: number
+          description: Initial stock quantity
+          default: 0
+    CreatePromotionDto:
+      type: object
+      properties:
+        variantId:
+          type: string
+          description: Product variant ID
+        customerType:
+          type: string
+          description: Customer type
+          enum:
+            - B2C
+            - B2B
+            - PARTICULIER
+            - AGENT_COMMERCIAL
+            - REVENDEUR
+        amount:
+          type: number
+          description: Promotional price
+          example: 12000
+        validFrom:
+          type: string
+          description: Valid from date
+        validTo:
+          type: string
+          description: Valid to date
+        minQuantity:
+          type: number
+          description: Minimum quantity
+          default: 1
+      required:
+        - variantId
+        - customerType
+        - amount
+        - validFrom
+        - validTo
+    UpdatePriceDto:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Price amount
+        minQuantity:
+          type: number
+          description: Minimum quantity
+        validFrom:
+          type: string
+          description: Valid from date
+        validTo:
+          type: string
+          description: Valid to date
+        isActive:
+          type: boolean
+          description: Is price active
+    CreateSupplierDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Global Tech Suppliers
+        contactName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        deliveryDelayDays:
+          type: number
+        isActive:
+          type: boolean
+          default: true
+      required:
+        - name
+    UpdateSupplierDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Global Tech Suppliers
+        contactName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        deliveryDelayDays:
+          type: number
+        isActive:
+          type: boolean
+          default: true
+    ReserveStockDto:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Quantity to reserve
+          example: 5
+        referenceId:
+          type: string
+          description: Reference ID (e.g. Order ID)
+          example: uuid
+        referenceType:
+          type: string
+          description: Reference type
+          example: ORDER
+      required:
+        - quantity
+        - referenceId
+        - referenceType
+    ReleaseStockDto:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Quantity to release
+          example: 5
+        referenceId:
+          type: string
+          description: Reference ID (e.g. Order ID)
+          example: uuid
+        referenceType:
+          type: string
+          description: Reference type
+          example: ORDER
+      required:
+        - quantity
+        - referenceId
+        - referenceType
+    StockAdjustmentDto:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Quantity adjustment (positive or negative)
+          example: 10
+        reason:
+          type: string
+          description: Reason for adjustment
+          example: Inventory count
+        supplierId:
+          type: string
+          description: Supplier ID for restocking
+      required:
+        - quantity
+        - reason
+    CreateCustomerDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer ID (from auth provider)
+          example: uuid
+        email:
+          type: string
+          description: Email address
+          example: user@example.com
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name
+        phone:
+          type: string
+          description: Phone number
+        companyName:
+          type: string
+          description: Company name (for B2B)
+        taxId:
+          type: string
+          description: Tax ID (for B2B)
+        customerType:
+          type: string
+          description: Customer type
+          enum:
+            - PARTICULIER
+            - AGENT_COMMERCIAL
+            - REVENDEUR
+          default: PARTICULIER
+      required:
+        - id
+        - email
+    UpdateCustomerDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name
+        lastName:
+          type: string
+          description: Last name
+        phone:
+          type: string
+          description: Phone number
+        companyName:
+          type: string
+          description: Company name
+        taxId:
+          type: string
+          description: Tax ID
+        customerType:
+          type: string
+          description: Manually upgrade customer type
+    CreateOrderDto:
+      type: object
+      properties:
+        cartId:
+          type: string
+          description: ID of the cart to convert to order
+        deliveryMethod:
+          type: string
+          description: Delivery method
+          enum:
+            - PICKUP
+            - HOME_DELIVERY
+            - DROPSHIP
+        shippingAddressId:
+          type: string
+          description: Shipping address ID (required for delivery)
+        billingAddressId:
+          type: string
+          description: Billing address ID
+        notes:
+          type: string
+          description: Customer notes
+      required:
+        - cartId
+        - deliveryMethod
+    UpdateOrderStatusDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: New status
+          enum:
+            - DRAFT
+            - PENDING
+            - CONFIRMED
+            - PROCESSING
+            - AWAITING_PAYMENT
+            - PAID
+            - PREPARING
+            - READY_FOR_PICKUP
+            - SHIPPED
+            - DELIVERED
+            - CANCELLED
+            - REFUNDED
+        notes:
+          type: string
+          description: Notes regarding the update
+      required:
+        - status
+    ScheduleInstallationDto:
+      type: object
+      properties:
+        scheduledAt:
+          type: string
+          description: Date and time for installation
+      required:
+        - scheduledAt
+    CreateQuoteDto:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Order ID associated with this quote
+        cartId:
+          type: string
+          description: Cart ID to convert to quote
+        installationConfig:
+          type: object
+          description: Installation configuration
+        validUntil:
+          type: string
+          description: Valid until date
+    AcceptQuoteDto:
+      type: object
+      properties:
+        notes:
+          type: string
+          description: Notes for acceptance
+    CreatePaymentDto:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: Order ID
+        amount:
+          type: number
+          description: Payment amount
+          example: 5000
+        method:
+          type: string
+          description: Payment method
+          enum:
+            - CASH
+            - MOBILE_MONEY
+            - BANK_TRANSFER
+            - CARD
+            - ON_DELIVERY
+        transactionId:
+          type: string
+          description: Transaction ID from provider
+        proof:
+          type: string
+          description: Proof of payment (reference/file)
+        notes:
+          type: string
+          description: Additional notes
+      required:
+        - orderId
+        - amount
+        - method
+    UpdatePaymentStatusDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: New payment status
+          enum:
+            - PENDING
+            - PARTIAL
+            - PAID
+            - REFUNDED
+            - FAILED
+        transactionId:
+          type: string
+          description: Transaction ID (if adding later)
+      required:
+        - status
+    AddToCartDto:
+      type: object
+      properties:
+        cartId:
+          type: string
+          description: Cart ID if adding to existing cart
+        customerId:
+          type: string
+          description: Customer ID for authenticated users
+        sessionId:
+          type: string
+          description: Session ID for guest users
+        variantId:
+          type: string
+          description: Product variant ID (required if not service)
+        serviceId:
+          type: string
+          description: Service ID (required if not variant)
+        quantity:
+          type: number
+          description: Quantity to add
+          example: 1
+      required:
+        - quantity
+    UpdateCartItemDto:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: New quantity
+          example: 2
+      required:
+        - quantity
+    MergeCartDto:
+      type: object
+      properties:
+        guestSessionId:
+          type: string
+          description: Guest session ID
+        customerId:
+          type: string
+          description: Customer ID to merge cart into
+      required:
+        - guestSessionId
+        - customerId
+    CreateSystemConfigDto:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Configuration key
+          example: whatsapp_enabled
+        value:
+          type: string
+          description: Configuration value
+          example: 'true'
+        description:
+          type: string
+          description: Description of the configuration
+      required:
+        - key
+        - value
+    UpdateSystemConfigDto:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Configuration value
+          example: 'false'
+        description:
+          type: string
+          description: Description of the configuration
+      required:
+        - value
+    FileResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+        size:
+          type: number
+        mimeType:
+          type: string
+        folderId:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+        - id
+        - name
+        - url
+        - size
+        - mimeType
+        - createdAt
+        - updatedAt
