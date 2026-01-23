@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { CheckCircle, MessageCircle, Home, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { config } from "@/lib/config"
 
 export default function OrderSuccessPage() {
   return (
@@ -14,7 +15,7 @@ export default function OrderSuccessPage() {
 
         <h1 className="text-3xl font-bold text-gray-900 mb-3">Commande confirmée!</h1>
         <p className="text-gray-600 mb-8">
-          Merci pour votre achat. Un agent Elektrik Store va vous contacter bientôt via WhatsApp pour confirmer votre
+          Merci pour votre achat. Un agent NKG Services va vous contacter bientôt via WhatsApp pour confirmer votre
           commande et les détails de livraison.
         </p>
 
@@ -26,7 +27,7 @@ export default function OrderSuccessPage() {
 
         <div className="space-y-3">
           <Button asChild size="lg" className="w-full bg-gradient-to-r from-green-500 to-blue-600">
-            <Link href="https://wa.me/237696123456" target="_blank">
+            <Link href={`https://wa.me/${config.company.phone.replace(/[^0-9]/g, '')}`} target="_blank">
               <MessageCircle className="mr-2 w-5 h-5" />
               Ouvrir WhatsApp
             </Link>
@@ -47,7 +48,7 @@ export default function OrderSuccessPage() {
           </Button>
         </div>
 
-        <p className="text-xs text-gray-500 mt-8">Numéro WhatsApp: +237 696 123 456</p>
+        <p className="text-xs text-gray-500 mt-8">Numéro WhatsApp: {config.company.phone}</p>
       </div>
     </div>
   )

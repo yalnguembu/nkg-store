@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
+import { config } from "@/lib/config"
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +20,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const whatsappMessage = `Nom: ${formData.name}%0AEmail: ${formData.email}%0AObjet: ${formData.subject}%0AMéssage: ${formData.message}`
-    window.open(`https://wa.me/237696123456?text=${whatsappMessage}`, "_blank")
+    window.open(`https://wa.me/${config.company.phone.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`, "_blank")
   }
 
   return (
@@ -34,9 +36,9 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {[
-            { icon: Phone, title: "Téléphone", value: "+237 696 123 456" },
-            { icon: Mail, title: "Email", value: "contact@elektrik.cm" },
-            { icon: MapPin, title: "Adresse", value: "Yaoundé, Cameroun" },
+            { icon: Phone, title: "Téléphone", value: config.company.phone },
+            { icon: Mail, title: "Email", value: config.company.email },
+            { icon: MapPin, title: "Adresse", value: config.company.location },
           ].map((contact, idx) => {
             const Icon = contact.icon
             return (
@@ -124,7 +126,7 @@ export default function ContactPage() {
             </p>
 
             <Button asChild size="lg" className="w-full bg-gradient-to-r from-amber-500 to-orange-600">
-              <a href="https://wa.me/237696123456" target="_blank" rel="noreferrer">
+              <a href={`https://wa.me/${config.company.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer">
                 <MessageCircle className="mr-2 w-4 h-4" />
                 Envoyer un message
               </a>

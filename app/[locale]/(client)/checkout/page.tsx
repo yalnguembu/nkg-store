@@ -8,6 +8,7 @@ import { ArrowLeft, MapPin, MessageCircle, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useCart } from "@/lib/cart-context"
+import { config } from "@/lib/config"
 
 export default function CheckoutPage() {
   const { items, total } = useCart()
@@ -50,7 +51,7 @@ export default function CheckoutPage() {
 
     const message = `Bonjour, je souhaite confirmer ma commande:%0A%0A${itemsList}%0A%0AClientèle: ${formData.fullName}%0ATéléphone: ${formData.phone}%0AAdresse: ${formData.addressLine1}, ${formData.city}%0A%0ASous-total: ${total.toLocaleString("fr-CM")} XAF%0ALivraison: ${deliveryCost.toLocaleString("fr-CM")} XAF%0AInstallation: ${installationCost.toLocaleString("fr-CM")} XAF%0ATOTAL: ${totalAmount.toLocaleString("fr-CM")} XAF`
 
-    return `https://wa.me/237696123456?text=${message}`
+    return `https://wa.me/${config.company.phone.replace(/[^0-9]/g, '')}?text=${message}`
   }
 
   if (items.length === 0) {
@@ -74,11 +75,10 @@ export default function CheckoutPage() {
           {(["address", "installation", "summary"] as const).map((s, idx) => (
             <div key={s} className="flex items-center gap-4">
               <div
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold ${
-                  step === s || (["address", "installation", "summary"].indexOf(step) > idx)
-                    ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white"
-                    : "bg-gray-200 text-gray-600"
-                }`}
+                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold ${step === s || (["address", "installation", "summary"].indexOf(step) > idx)
+                  ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white"
+                  : "bg-gray-200 text-gray-600"
+                  }`}
               >
                 {["address", "installation", "summary"].indexOf(s) + 1}
               </div>

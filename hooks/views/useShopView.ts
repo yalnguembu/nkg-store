@@ -45,15 +45,40 @@ export function useShopView() {
 
       if (productsRes.data) {
         const responseData = productsRes.data as any
-        setProducts(responseData?.data?.data || [])
+        const rawProducts = (responseData?.data.data || []) as any[]
+
+        const mappedProducts: Product[] = rawProducts.map(p => {
+          const variants = p.variants || []
+          let displayPrice = p.price
+
+          if (variants.length > 0) {
+            const variantWithPrice = variants.find((v: any) => v.bestPrice) || variants[0]
+            if (variantWithPrice) {
+              displayPrice = variantWithPrice.bestPrice
+            }
+          }
+
+          return {
+            ...p,
+            price: displayPrice
+          }
+        })
+
+        setProducts(mappedProducts)
       }
       if (categoriesRes.data) {
         const responseData = categoriesRes.data as any
-        setCategories(responseData?.data?.data || [])
+        setCategories(responseData?.data || [])
       }
       if (brandsRes.data) {
         const responseData = brandsRes.data as any
-        setBrands(responseData?.data?.data || [])
+        setCategories(prev => prev)
+        // Fix categories extraction properly
+        const catResponse = categoriesRes.data.data as any
+        setCategories(catResponse?.data || [])
+
+        const brandResponse = brandsRes.data.data as any
+        setBrands(brandResponse?.data || [])
       }
     } catch (error) {
       toast({

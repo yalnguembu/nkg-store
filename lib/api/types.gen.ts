@@ -2391,3 +2391,92 @@ export type FilesControllerDeleteFileData = {
 export type FilesControllerDeleteFileResponses = {
     200: unknown;
 };
+
+export type CreateServiceDto = {
+    name: string;
+    slug: string;
+    description?: string;
+    imageUrl?: string;
+    isActive?: boolean;
+};
+
+export type UpdateServiceDto = {
+    name?: string;
+    slug?: string;
+    description?: string;
+    imageUrl?: string;
+    isActive?: boolean;
+};
+
+export type ServicesControllerCreateData = {
+    body: CreateServiceDto;
+    path?: never;
+    query?: never;
+    url: '/catalogue/services';
+};
+
+export type ServicesControllerCreateResponses = {
+    201: DataResponseDto;
+};
+
+export type ServicesControllerCreateResponse = ServicesControllerCreateResponses[keyof ServicesControllerCreateResponses];
+
+export type ServicesControllerFindAllData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/catalogue/services';
+};
+
+export type ServicesControllerFindAllResponses = {
+    200: DataResponseDto & {
+        data: Array<CreateServiceDto>;
+    };
+};
+
+export type ServicesControllerFindAllResponse = ServicesControllerFindAllResponses[keyof ServicesControllerFindAllResponses];
+
+export type ServicesControllerFindOneData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/catalogue/services/{id}';
+};
+
+export type ServicesControllerFindOneResponses = {
+    200: DataResponseDto;
+};
+
+export type ServicesControllerFindOneResponse = ServicesControllerFindOneResponses[keyof ServicesControllerFindOneResponses];
+
+export type ServicesControllerUpdateData = {
+    body: UpdateServiceDto;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/catalogue/services/{id}';
+};
+
+export type ServicesControllerUpdateResponses = {
+    200: DataResponseDto;
+};
+
+export type ServicesControllerUpdateResponse = ServicesControllerUpdateResponses[keyof ServicesControllerUpdateResponses];
+
+export type ServicesControllerRemoveData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/catalogue/services/{id}';
+};
+
+export type ServicesControllerRemoveResponses = {
+    200: DataResponseDto;
+};
+
+export type ServicesControllerRemoveResponse = ServicesControllerRemoveResponses[keyof ServicesControllerRemoveResponses];

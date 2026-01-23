@@ -2203,6 +2203,106 @@ paths:
       summary: Delete a file
       tags:
         - Files
+  /catalogue/services:
+    post:
+      operationId: ServicesController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServiceDto'
+      responses:
+        '201':
+          description: Service created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseDto'
+      summary: Create a new service
+      tags:
+        - Services
+    get:
+      operationId: ServicesController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: Return all services
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/DataResponseDto'
+                  - properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CreateServiceDto'
+      summary: Get all services
+      tags:
+        - Services
+  /catalogue/services/{id}:
+    get:
+      operationId: ServicesController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Return service details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseDto'
+      summary: Get service details
+      tags:
+        - Services
+    patch:
+      operationId: ServicesController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServiceDto'
+      responses:
+        '200':
+          description: Service updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseDto'
+      summary: Update a service
+      tags:
+        - Services
+    delete:
+      operationId: ServicesController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseDto'
+      summary: Delete (deactivate) a service
+      tags:
+        - Services
 info:
   title: Admin Catalogue API
   description: The Admin Catalogue API description
@@ -3053,3 +3153,35 @@ components:
         - mimeType
         - createdAt
         - updatedAt
+    CreateServiceDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Electrical Installation
+        slug:
+          type: string
+          example: electrical-installation
+        description:
+          type: string
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+      required:
+        - name
+        - slug
+    UpdateServiceDto:
+      type: object
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        isActive:
+          type: boolean

@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Facebook, Box } from "lucide-react"
+import { config } from "@/lib/config"
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 mb-4" />
-            <h3 className="font-semibold text-white mb-2">Elektrik Store</h3>
+            <h3 className="font-semibold text-white mb-2">NKG Services</h3>
             <p className="text-sm text-gray-400">Votre partenaire de confiance pour tous vos besoins électriques</p>
           </div>
 
@@ -61,29 +62,65 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Contact</h4>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                <a href="mailto:contact@elektrik.cm" className="hover:text-white transition">
-                  contact@elektrik.cm
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                <a href="tel:+237696123456" className="hover:text-white transition">
-                  +237 696 123 456
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
-                <span>Yaoundé, Cameroun</span>
-              </li>
+              {config.company.email && (
+                <li className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-orange-500" />
+                  <a href={`mailto:${config.company.email}`} className="hover:text-white transition">
+                    {config.company.email}
+                  </a>
+                </li>
+              )}
+              {config.company.email2 && (
+                <li className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-orange-500" />
+                  <a href={`mailto:${config.company.email2}`} className="hover:text-white transition">
+                    {config.company.email2}
+                  </a>
+                </li>
+              )}
+              {config.company.phone && (
+                <li className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-orange-500" />
+                  <a href={`tel:${config.company.phone}`} className="hover:text-white transition">
+                    {config.company.phone}
+                  </a>
+                </li>
+              )}
+              {config.company.phone2 && (
+                <li className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-orange-500" />
+                  <a href={`tel:${config.company.phone2}`} className="hover:text-white transition">
+                    {config.company.phone2}
+                  </a>
+                </li>
+              )}
+              {config.company.phone3 && (
+                <li className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-orange-500" />
+                  <a href={`tel:${config.company.phone3}`} className="hover:text-white transition">
+                    {config.company.phone3}
+                  </a>
+                </li>
+              )}
+              {config.company.pobox && (
+                <li className="flex items-center gap-2">
+                  <Box className="w-4 h-4 text-orange-500" />
+                  <span>{config.company.pobox}</span>
+                </li>
+              )}
+              {config.company.location && (
+                <li className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-orange-500" />
+                  <span>{config.company.location}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <p>&copy; 2025 Elektrik Store. Tous droits réservés.</p>
+          <p>&copy; 2025 NKG Services. Tous droits réservés.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-white transition">
               Confidentialité

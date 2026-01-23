@@ -8,7 +8,7 @@ export default function AboutPage() {
       {/* Hero */}
       <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-4 border-b border-gray-200">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">À propos de Elektrik Store</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">À propos de NKG Services</h1>
           <p className="text-xl text-gray-600">
             Votre partenaire de confiance pour les solutions électriques depuis plus de 10 ans
           </p>
@@ -22,7 +22,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Notre mission</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Chez Elektrik Store, nous nous engageons à fournir des solutions électriques de qualité supérieure,
+              Chez NKG Services, nous nous engageons à fournir des solutions électriques de qualité supérieure,
               accompagnées d'un service client exceptionnel. Nous croyons que l'électricité de qualité est la base du
               développement durable.
             </p>

@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from "react"
 import {
   stockControllerGetLowStockItems,
-  stockControllerGetStock,
   stockControllerAdjustStock,
   stockControllerGetMovements,
   productsControllerFindAll,
@@ -36,23 +35,13 @@ export function useStockView() {
 
       if (productsRes.data) {
         const responseData = productsRes.data as any
-        const productList = responseData?.data?.data || []
+        const productList = (responseData?.data || []) as Product[]
         setProducts(productList)
 
-        // Extract all variants and fetch their stock
-        const allVariants = productList.flatMap(p => p.variants || [])
-
-        // Fetch all stocks (this might need an optimized aggregate endpoint, but we'll fetch them individually or use mock/partial if API allows bulk)
-        // For now, let's assume we fetch them and map them.
-        // Actually, the backend ProductsControllerFindOne includes variants which might include stock? 
-        // Let's check the schema or assume the Stock is linked.
-
-        const stockPromises = allVariants.map(v => stockControllerGetStock({ path: { variantId: v.id } }))
-        const stockRes = await Promise.all(stockPromises)
-
-        const stockList: Stock[] = stockRes
-          .filter(res => res.data)
-          .map(res => res.data as Stock)
+        // Extract all stocks from product variants (no need for separate N+1 calls)
+        const stockList: Stock[] = productList.flatMap(p =>
+          p.variants?.map((v: ProductVariant) => v.stock).filter(Boolean) || []
+        ) as Stock[]
 
         setStocks(stockList)
       }

@@ -1,6 +1,8 @@
-import { ArrowRight, Zap, Wrench, Lightbulb, BarChart3, Phone } from "lucide-react"
+'use client'
+import { Zap, Wrench, Lightbulb, BarChart3, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useServicesView } from "@/hooks/views/useServicesView"
+import { config } from "@/lib/config"
 
 export default function ServicesPage() {
   const { services, pricing, isLoading } = useServicesView()
@@ -52,7 +54,7 @@ export default function ServicesPage() {
                   <span className="font-bold text-amber-600">Sur devis</span>
                   <Button asChild size="sm" className="bg-gradient-to-r from-amber-500 to-orange-600">
                     <a
-                      href={`https://wa.me/237696123456?text=Je%20souhaite%20en%20savoir%20plus%20sur%20votre%20service%20:%20${encodeURIComponent(service.name)}`}
+                      href={`https://wa.me/${config.company.phone.replace(/[^0-9]/g, '')}?text=Je%20souhaite%20en%20savoir%20plus%20sur%20votre%20service%20:%20${encodeURIComponent(service.name)}`}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -95,7 +97,7 @@ export default function ServicesPage() {
           </p>
           <Button size="lg" variant="secondary" asChild>
             <a
-              href="https://wa.me/237696123456?text=Bonjour,%20je%20souhaite%20discuter%20d'un%20projet%20électrique"
+              href={`https://wa.me/${config.company.phone.replace(/[^0-9]/g, '')}?text=Bonjour,%20je%20souhaite%20discuter%20d'un%20projet%20électrique`}
               target="_blank"
               rel="noreferrer"
             >

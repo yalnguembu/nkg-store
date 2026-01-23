@@ -23,10 +23,10 @@ export function useServicesView() {
       ])
 
       if (servicesRes.data) {
-        setServices(servicesRes.data as any[])
+        setServices(servicesRes.data.data)
       }
       if (pricingRes.data) {
-        setPricing(pricingRes.data as any[])
+        setPricing((pricingRes.data as any).data)
       }
     } catch (error) {
       toast({

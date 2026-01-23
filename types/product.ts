@@ -21,10 +21,12 @@ export interface Product {
   metaDescription?: string | null;
   createdAt: string;
   updatedAt: string;
-  category?: Partial<Category>;
-  brand?: Partial<Brand>;
+  category?: Partial<Category> & { imageUrl?: string | null };
+  brand?: Partial<Brand> & { logoUrl?: string | null };
   supplier?: Partial<Supplier>;
   variants?: ProductVariant[];
   images?: { imageUrl: string; isPrimary: boolean }[];
   price?: number;
+  bulkPrice?: number | null;
+  bulkMinQuantity?: number | null;
 }
