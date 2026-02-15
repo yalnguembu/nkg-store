@@ -1,6 +1,6 @@
 import { client } from "./api/client.gen";
 
-const apiUrl = 'http://localhost:3001';
+const apiUrl = "https://api.store.nguembu.cloud";
 
 client.setConfig({
   baseUrl: apiUrl,
@@ -17,5 +17,5 @@ export const config = {
     email: "nkgservicesplus@yahoo.fr",
     email2: "georgesnguimfack@yahoo.fr",
     location: "Nouvelle route Bonadibon a cote d'EXPRESS UNION",
-  }
+  },
 };
