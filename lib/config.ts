@@ -1,6 +1,6 @@
 import { client } from "./api/client.gen";
 
-const apiUrl = "https://api.store.nguembu.cloud";
+const apiUrl = "http://localhost:3001";
 
 client.setConfig({
   baseUrl: apiUrl,

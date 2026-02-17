@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User, AuthState } from '@/types/auth';
-import { client } from './api/client.gen';
-import '@/lib/config';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { User, AuthState } from "@/types/auth";
+import { client } from "./api/client.gen";
+import "@/lib/config";
 
 interface AuthContextType extends AuthState {
   login: (token: string, user: User) => void;
@@ -21,32 +21,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('auth_token');
-    const storedUser = localStorage.getItem('auth_user');
+    const storedToken = localStorage.getItem("auth_token");
+    const storedUser = localStorage.getItem("auth_user");
 
-    if (storedToken && storedUser) {
-      const user = JSON.parse(storedUser);
-      setState({
-        token: storedToken,
-        user,
-        isAuthenticated: true,
-        isLoading: false,
-      });
+    if (storedToken && storedUser && storedUser !== "undefined") {
+      try {
+        const user = JSON.parse(storedUser);
+        setState({
+          token: storedToken,
+          user,
+          isAuthenticated: true,
+          isLoading: false,
+        });
 
-      // Configure API client with token
-      client.setConfig({
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-        },
-      });
+        // Configure API client with token
+        client.setConfig({
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        });
+      } catch (error) {
+        console.error("Failed to parse stored user:", error);
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("auth_user");
+        setState((prev) => ({ ...prev, isLoading: false }));
+      }
     } else {
       setState((prev) => ({ ...prev, isLoading: false }));
     }
   }, []);
 
   const login = (token: string, user: User) => {
-    localStorage.setItem('auth_token', token);
-    localStorage.setItem('auth_user', JSON.stringify(user));
+    localStorage.setItem("auth_token", token);
+    localStorage.setItem("auth_user", JSON.stringify(user));
+
+    // Set cookie for middleware (expires in 7 days)
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 7);
+    document.cookie = `auth_token=${token}; path=/; expires=${expires.toUTCString()}; SameSite=Lax`;
 
     setState({
       token,
@@ -63,8 +75,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = () => {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('auth_user');
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("auth_user");
+
+    // Remove cookie for middleware
+    document.cookie =
+      "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
 
     setState({
       user: null,
@@ -90,7 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
