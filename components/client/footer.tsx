@@ -1,6 +1,7 @@
-import Link from "next/link"
-import { Mail, Phone, MapPin, Facebook, Box } from "lucide-react"
-import { config } from "@/lib/config"
+import Link from "next/link";
+import { Mail, Phone, MapPin, Facebook, Box } from "lucide-react";
+import { config } from "@/lib/config";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -9,9 +10,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 mb-4" />
+            <Image
+              src="/logo.png"
+              alt="NKG Services"
+              width={200}
+              height={200}
+              className="mb-6"
+            />
             <h3 className="font-semibold text-white mb-2">NKG Services</h3>
-            <p className="text-sm text-gray-400">Votre partenaire de confiance pour tous vos besoins électriques</p>
+            <p className="text-sm text-gray-400">
+              Votre partenaire de confiance pour tous vos besoins électriques
+            </p>
           </div>
 
           {/* Links */}
@@ -24,12 +33,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-white transition">
+                <Link href="/#" className="hover:text-white transition">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="hover:text-white transition">
+                <Link href="/#" className="hover:text-white transition">
                   Carrières
                 </Link>
               </li>
@@ -46,12 +55,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-white transition">
+                <Link href="/#" className="hover:text-white transition">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="hover:text-white transition">
+                <Link href="/#" className="hover:text-white transition">
                   Retours
                 </Link>
               </li>
@@ -65,7 +74,10 @@ export function Footer() {
               {config.company.email && (
                 <li className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-orange-500" />
-                  <a href={`mailto:${config.company.email}`} className="hover:text-white transition">
+                  <a
+                    href={`mailto:${config.company.email}`}
+                    className="hover:text-white transition"
+                  >
                     {config.company.email}
                   </a>
                 </li>
@@ -73,7 +85,10 @@ export function Footer() {
               {config.company.email2 && (
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-orange-500" />
-                  <a href={`mailto:${config.company.email2}`} className="hover:text-white transition">
+                  <a
+                    href={`mailto:${config.company.email2}`}
+                    className="hover:text-white transition"
+                  >
                     {config.company.email2}
                   </a>
                 </li>
@@ -81,7 +96,10 @@ export function Footer() {
               {config.company.phone && (
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-orange-500" />
-                  <a href={`tel:${config.company.phone}`} className="hover:text-white transition">
+                  <a
+                    href={`tel:${config.company.phone}`}
+                    className="hover:text-white transition"
+                  >
                     {config.company.phone}
                   </a>
                 </li>
@@ -89,7 +107,10 @@ export function Footer() {
               {config.company.phone2 && (
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-orange-500" />
-                  <a href={`tel:${config.company.phone2}`} className="hover:text-white transition">
+                  <a
+                    href={`tel:${config.company.phone2}`}
+                    className="hover:text-white transition"
+                  >
                     {config.company.phone2}
                   </a>
                 </li>
@@ -97,7 +118,10 @@ export function Footer() {
               {config.company.phone3 && (
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-orange-500" />
-                  <a href={`tel:${config.company.phone3}`} className="hover:text-white transition">
+                  <a
+                    href={`tel:${config.company.phone3}`}
+                    className="hover:text-white transition"
+                  >
                     {config.company.phone3}
                   </a>
                 </li>
@@ -135,5 +159,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

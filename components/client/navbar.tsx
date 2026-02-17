@@ -1,21 +1,22 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Search, ShoppingCart, User, Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { config } from "@/lib/config"
-import { Phone, MapPin, Facebook, MessageCircle } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { config } from "@/lib/config";
+import { Phone, MapPin, Facebook, MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="sticky top-0 z-50">
       {/* Top Info Bar */}
-      < div className="bg-orange-600 text-white py-1" >
+      <div className="bg-orange-600 text-white py-1">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center text-xs sm:text-sm">
           <div className="flex items-center gap-4">
             {config.company.location && (
@@ -27,15 +28,21 @@ export function Navbar() {
             {config.company.phone && (
               <div className="flex items-center gap-1.5">
                 <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
-                <a href={`tel:${config.company.phone}`} className="hover:text-orange-100 transition-colors">
+                <a
+                  href={`tel:${config.company.phone}`}
+                  className="hover:text-orange-100 transition-colors"
+                >
                   {config.company.phone.replace(/(\d{3})(?=\d)/g, "$1 ")}
                 </a>
               </div>
             )}
             {config.company.phone3 && (
               <div className="flex items-center gap-1.5">
-                <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
-                <a href={`tel:${config.company.phone3}`} className="hover:text-orange-100 transition-colors">
+                <Phone className="inlinew-3 h-3 sm:w-4 sm:h-4" />
+                <a
+                  href={`tel:${config.company.phone3}`}
+                  className="hover:text-orange-100 transition-colors"
+                >
                   {config.company.phone3.replace(/(\d{3})(?=\d)/g, "$1 ")}
                 </a>
               </div>
@@ -56,38 +63,58 @@ export function Navbar() {
             {/* WhatsApp via Phone */}
             {config.company.phone2 && (
               <a
-                href={`https://wa.me/${config.company.phone2.replace(/[^0-9]/g, '')}`}
+                href={`https://wa.me/${config.company.phone2.replace(/[^0-9]/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-orange-100 transition-colors"
+                className="hover:text-orange-100 flex gap-2 items-center transition-colors"
                 aria-label="WhatsApp"
               >
-                <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+                <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />{" "}
+                {config.company.phone2.replace(/[^0-9]/g, "")}
               </a>
             )}
           </div>
         </div>
-      </div >
+      </div>
 
       <nav className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600" />
-              <span className="font-semibold text-gray-900 hidden sm:inline">NKG Services</span>
+              <Image
+                src="/logo.png"
+                alt="NKG Services"
+                width={100}
+                height={100}
+                className="mr-6 mb-2"
+              />
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8 pl-2">
-
-              <Link href="/shop" className="text-gray-600 hover:text-gray-900 transition-colors">
+              <Link
+                href="/"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Accueil
+              </Link>
+              <Link
+                href="/shop"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
                 Boutique
               </Link>
-              <Link href="/services" className="text-gray-600 hover:text-gray-900 transition-colors">
+              <Link
+                href="/services"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
                 Services
               </Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
+              <Link
+                href="/about"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
                 À propos
               </Link>
             </div>
@@ -126,8 +153,17 @@ export function Navbar() {
               </Button>
 
               {/* Mobile Menu Toggle */}
-              <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </Button>
             </div>
           </div>
@@ -135,16 +171,28 @@ export function Navbar() {
           {/* Mobile Navigation */}
           {isOpen && (
             <div className="md:hidden border-t border-gray-100 py-4 space-y-4">
-              <Link href="/" className="block text-gray-600 hover:text-gray-900">
+              <Link
+                href="/"
+                className="block text-gray-600 hover:text-gray-900"
+              >
                 Accueil
               </Link>
-              <Link href="/shop" className="block text-gray-600 hover:text-gray-900">
+              <Link
+                href="/shop"
+                className="block text-gray-600 hover:text-gray-900"
+              >
                 Boutique
               </Link>
-              <Link href="/services" className="block text-gray-600 hover:text-gray-900">
+              <Link
+                href="/services"
+                className="block text-gray-600 hover:text-gray-900"
+              >
                 Services
               </Link>
-              <Link href="/about" className="block text-gray-600 hover:text-gray-900">
+              <Link
+                href="/about"
+                className="block text-gray-600 hover:text-gray-900"
+              >
                 À propos
               </Link>
               <div className="pt-4 border-t border-gray-100">
@@ -160,6 +208,6 @@ export function Navbar() {
           )}
         </div>
       </nav>
-    </div >
-  )
+    </div>
+  );
 }
