@@ -1,6 +1,6 @@
 import { client } from "./api/client.gen";
 
-const apiUrl = "http://localhost:3001";
+const apiUrl = "https://api.nkgservices.com";
 
 client.setConfig({
   baseUrl: apiUrl,
