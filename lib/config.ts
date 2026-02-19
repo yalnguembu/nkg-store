@@ -1,6 +1,6 @@
 import { client } from "./api/client.gen";
 
-const apiUrl = "https://api.store.nguembu.cloud";
+const apiUrl = "http://localhost:3001";
 
 client.setConfig({
   baseUrl: apiUrl,
@@ -9,13 +9,13 @@ client.setConfig({
 export const config = {
   apiUrl,
   company: {
-    facebookUrl: "https://www.facebook.com/p/NKG-Services-100077928075958/",
+    facebookUrl: "https://www.facebook.com/p/NKG-services-100063761185251/",
     pobox: "B.P: 4918 Douala",
-    phone: "23307204496",
-    phone2: "677406443",
+    phone: "243724496",
+    phone2: "677406343",
     phone3: "697977477",
-    email: "nkgservicesplus@yahoo.fr",
+    email: "nkgservices@yahoo.fr",
     email2: "georgesnguimfack@yahoo.fr",
-    location: "Nouvelle route Bonadibon a cote d'EXPRESS UNION",
+    location: "Nouvelle route Bonadibon en face de l'Ecole HORIZON",
   },
 };

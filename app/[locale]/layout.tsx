@@ -3,20 +3,21 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import '@/lib/config'; // Initialize API client
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import "@/lib/config"; // Initialize API client
 
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Electrik Store - Admin",
-  description: "Admin Panel",
+  title: "NKG Services",
+  description:
+    "Fourniture du materiels eletrics installation et maintenance, climatisation, Gadgets auto, et installation de camera de surveillance",
 };
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -30,9 +31,7 @@ export default async function LocaleLayout({
       <body className={geist.className}>
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
-            <CartProvider>
-              {children}
-            </CartProvider>
+            <CartProvider>{children}</CartProvider>
           </AuthProvider>
         </NextIntlClientProvider>
       </body>
